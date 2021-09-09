@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import Home from './pages/Home'
+import CityList from './pages/CityList'
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Route path="/home" component={Home}></Route>
+      <Route path="/cityList" component={CityList}></Route>
+      {/* <Redirect from='/' to='/home' /> */}
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
