@@ -1,0 +1,32 @@
+.search {
+    position: absolute;
+    top: 20px;
+    width: 90%;
+    height: 40px;
+    display: flex;
+    left: 20px;
+    .left {
+        background-color: #fff;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        .am-search {
+            background-color: transparent;
+        }
+        .form {
+            width: 240px;
+        }
+        .city {
+            border-right: 1px solid #ccc;
+            padding-right: 5px;
+            padding-left: 7px;
+            display: flex;
+            align-items: center;
+        }
+    }
+    .location {
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
+    }
+}

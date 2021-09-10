@@ -1,3 +1,13 @@
-*{
+// global css
+* {
     touch-action: pan-y;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+html,
+body,
+#root,
+.App {
+    height: 100%;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState, useMemo, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Carousel, Flex } from 'antd-mobile';
 import { get } from '../../utils/http/axios'
@@ -8,10 +8,12 @@ import nav1 from '../../assets/img/nav-1.png'
 import nav2 from '../../assets/img/nav-2.png'
 import nav3 from '../../assets/img/nav-3.png'
 import nav4 from '../../assets/img/nav-4.png'
-export default function Index() {
-    const history = useHistory()
-    const [imgList, setImgList] = useState([])
-    const [navList, setNavList] = useState([{
+import Search from '../../components/Search/Search';
+import { UPDATELOCATION } from '../Home/action'
+import { AppContext } from '../../pages/Home/index'
+
+export default function Index(props) {
+    const navList = [{
         icon: nav1,
         title: "整租"
     }, {
@@ -24,12 +26,16 @@ export default function Index() {
     }, {
         icon: nav4,
         title: "去出租"
-    }])
+    }]
+    const history = useHistory()
+    const [imgList, setImgList] = useState([])
     const [groupList, setGroupList] = useState([])
     const [newsList, setNewsList] = useState([])
+    const { dispatch, state } = useContext(AppContext);
     useEffect(async () => {
         const { body } = await get("/home/swiper")
         setImgList(body)
+
     }, [])
     useEffect(async () => {
         const { body } = await get("/home/groups", {
@@ -42,7 +48,17 @@ export default function Index() {
             area: 'AREA|88cff55c-aaa4-e2e0' // 地区ID
         })
         setNewsList(body)
-        console.log(body)
+        navigator.geolocation.getCurrentPosition(position => {
+            // H5只能获取位置信息,经度
+            dispatch({
+                type: UPDATELOCATION,
+                data: {
+                    latitude: position.coords.latitude,
+                    longitude:position.coords.longitude
+                }
+            })
+        })
+
     }, [])
     // 轮播图bug 1:初始数据为[],不会自动播放,高度会有问题
     // 解决方法, flag 判断当前数据获取成功否,再去渲染dom
@@ -85,10 +101,11 @@ export default function Index() {
     return (
         <div style={{ paddingBottom: "15px" }}>
             <div className="Index">
-                <div style={{ height: '210px' }}>
+                <div style={{ height: '210px', position: 'relative' }}>
                     {imgDoneflag ? <Carousel autoplay infinite>
                         {renderImgs(imgList)}
                     </Carousel> : ''}
+                    <Search />
                 </div>
                 <Flex>
                     {renderFlexItem(navList)}
