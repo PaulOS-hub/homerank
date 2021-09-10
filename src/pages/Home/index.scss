@@ -1,0 +1,25 @@
+#tab-bar.demo {
+  display: flex;
+  flex-direction: column;
+}
+
+#tab-bar .demoName {
+  height: 40px;
+}
+
+#tab-bar .demo-preview-item .am-tab-bar {
+  background-color: white;
+}
+.home .iconfont {
+  font-size: 20px;
+}
+.tabbar-class {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+.home {
+  background-color: #fff;
+  height:calc(100vh - 50px);
+  overflow: auto;
+}
