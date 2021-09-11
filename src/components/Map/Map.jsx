@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react'
-import { AppContext } from '../../pages/Home/index'
+import { AppContext } from '../../store/context'
 import './index.scss'
 export default function Map(props) {
     const { dispatch, state } = useContext(AppContext);

@@ -9,8 +9,8 @@ import nav2 from '../../assets/img/nav-2.png'
 import nav3 from '../../assets/img/nav-3.png'
 import nav4 from '../../assets/img/nav-4.png'
 import Search from '../../components/Search/Search';
-import { UPDATELOCATION } from '../Home/action'
-import { AppContext } from '../../pages/Home/index'
+import { UPDATELOCATION } from '../../store/action'
+import { AppContext } from '../../store/context'
 import Bus from '../../Events'
 export default function Index(props) {
     const navList = [{

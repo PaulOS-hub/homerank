@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { SearchBar } from 'antd-mobile'
+import { UPDATELOCATION } from '../../store/action'
+import { AppContext } from '../../store/context'
 import './index.scss'
 export default function Search({ cityName, transferCity }) {
+    const { dispatch, state } = useContext(AppContext);
     const history = useHistory()
     const gotoCityList = () => {
         transferCity()
         history.push("/cityList")
     }
     const gotoMap = () => {
+        dispatch({
+            type: UPDATELOCATION,
+            data: {
+                longitude: 120.11444,
+                latitude: 50.32142
+            }
+        })
         history.push("/home/map")
     }
     return (
