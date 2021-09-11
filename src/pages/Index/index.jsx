@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useMemo, useContext } from 'react'
+import React, { useEffect, useState, useMemo, useContext, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Carousel, Flex } from 'antd-mobile';
+import { Carousel, Flex, Toast } from 'antd-mobile';
 import { get } from '../../utils/http/axios'
 import { BASE_URL } from '../../config'
 import './index.scss'
@@ -11,7 +11,7 @@ import nav4 from '../../assets/img/nav-4.png'
 import Search from '../../components/Search/Search';
 import { UPDATELOCATION } from '../Home/action'
 import { AppContext } from '../../pages/Home/index'
-
+import Bus from '../../Events'
 export default function Index(props) {
     const navList = [{
         icon: nav1,
@@ -28,6 +28,7 @@ export default function Index(props) {
         title: "去出租"
     }]
     const history = useHistory()
+    const [cityName, setCityName] = useState('')
     const [imgList, setImgList] = useState([])
     const [groupList, setGroupList] = useState([])
     const [newsList, setNewsList] = useState([])
@@ -48,18 +49,35 @@ export default function Index(props) {
             area: 'AREA|88cff55c-aaa4-e2e0' // 地区ID
         })
         setNewsList(body)
-        navigator.geolocation.getCurrentPosition(position => {
-            // H5只能获取位置信息,经度
+        const myCity = new window.BMapGL.LocalCity();
+        myCity.get(async res => {
+            const { body } = await get("/area/info", {
+                name: "南京"
+            })
+            setCityName(body.label)
+            console.log(body)
+            localStorage.setItem("city", JSON.stringify(body))
+            // 
             dispatch({
                 type: UPDATELOCATION,
                 data: {
-                    latitude: position.coords.latitude,
-                    longitude:position.coords.longitude
+                    latitude: res.center.lat,
+                    longitude: res.center.lng
                 }
             })
-        })
-
+        });
+        // navigator.geolocation.getCurrentPosition(position => {
+        //     // H5只能获取位置信息,经度
+        //     dispatch({
+        //         type: UPDATELOCATION,
+        //         data: {
+        //             latitude: position.coords.latitude,
+        //             longitude: position.coords.longitude
+        //         }
+        //     })
+        // })
     }, [])
+
     // 轮播图bug 1:初始数据为[],不会自动播放,高度会有问题
     // 解决方法, flag 判断当前数据获取成功否,再去渲染dom
     const renderImgs = data => {
@@ -77,7 +95,6 @@ export default function Index(props) {
         ))
     }
     const goDetail = item => {
-        console.log(item)
         history.push(item.path)
     }
     const renderFlexItem = data => {
@@ -98,6 +115,9 @@ export default function Index(props) {
     const imgDoneflag = useMemo(() => {
         return imgList.length > 0 ? true : false
     }, [imgList])
+    const transferCity = () => {
+        // Bus.emit('getCurrentCity', cityName);
+    }
     return (
         <div style={{ paddingBottom: "15px" }}>
             <div className="Index">
@@ -105,7 +125,7 @@ export default function Index(props) {
                     {imgDoneflag ? <Carousel autoplay infinite>
                         {renderImgs(imgList)}
                     </Carousel> : ''}
-                    <Search />
+                    <Search transferCity={transferCity} cityName={cityName} />
                 </div>
                 <Flex>
                     {renderFlexItem(navList)}

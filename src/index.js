@@ -7,7 +7,6 @@ import Home from './pages/Home'
 import CityList from './pages/CityList'
 import Map from './components/Map/Map'
 import ErrorPage from './pages/404'
-
 import './assets/fonts/iconfont.css'
 import './index.scss'
 
