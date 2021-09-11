@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
-import { NavBar } from 'antd-mobile';
+import { NavBar, Toast } from 'antd-mobile';
 import { get } from '../../utils/http/axios'
 import { formatCityData } from '../../utils/utils'
 import Bus from '../../Events'
@@ -16,7 +16,8 @@ export default function CityList() {
     const [list, setList] = useState(Array(100).fill('mmmm'))
     const [cityList, setCityList] = useState({})
     const [cityIndex, setCityIndex] = useState([])
-
+    const [activeIndex, setActiveIndex] = useState(0)
+    const myRef = useRef()
     const rowRenderer = ({
         key,
         index,
@@ -29,7 +30,7 @@ export default function CityList() {
         return <div key={key} style={style} className="citys">
             <div className="title">{formatUtil(cur)}</div>
             {cityList[cur].map(item =>
-                <div className="name" key={item.value}>{item.label}</div>
+                <div onClick={() => { changCity(item) }} className="name" key={item.value}>{item.label}</div>
             )}
         </div>
 
@@ -63,13 +64,38 @@ export default function CityList() {
         console.log(cityList)
         setCityList(cityList)
         setCityIndex(cityIndex)
+        myRef.current.measureAllRows() // 提前计算每一行的高度,解决下面的bug跳转可能出现的问题
     }, [])
+
+    const gotoLine = (e) => {
+        setActiveIndex(e)
+
+        myRef.current.scrollToRow(e) // 跳转的内容,需要可见,刚开始直接跳到最后可能出问题
+    }
     const renderCityIndex = () => {
-        return cityIndex.map(item =>
-            <li className="city-index-item">
-                <span className="index-active">#</span>
+        return cityIndex.map((item, index) =>
+            <li key={item} className="city-index-item" onClick={() => gotoLine(index)}>
+                <span className={activeIndex === index ? 'index-active' : ''}>{item === 'hot' ? '热' : item.toUpperCase()}</span>
             </li>
         )
+    }
+    // 展示区信息
+    const onRowsRendered = ({ startIndex, endIndex }) => {
+        if (startIndex !== activeIndex) setActiveIndex(startIndex) // 避免不必要更新
+    }
+    // 切换城市信息
+    const changCity = e => {
+        const arr = ['北京', '上海', '广州', '深圳']
+        console.log(e)
+        if (!arr.includes(e.label)) {
+            Toast.fail('该城市没有房源噢!', 2)
+        } else {
+            localStorage.setItem("city", JSON.stringify({
+                label: e.label,
+                value: e.value
+            }))
+            history.go(-1)
+        }
     }
     return (
         <div className="city-room ">
@@ -82,16 +108,19 @@ export default function CityList() {
             <AutoSizer>
                 {({ height, width }) => (
                     <List
+                        ref={myRef}
                         width={width}
                         height={height}
                         rowCount={cityIndex.length}
                         rowHeight={getRowHeight}
+                        scrollToAlignment="start" //  点击索引出现在最顶部
+                        onRowsRendered={onRowsRendered} // 
                         rowRenderer={rowRenderer}
                     />
                 )}
             </AutoSizer>
-            <ul>
-
+            <ul className="city-index">
+                {renderCityIndex()}
             </ul>
         </div >
     )

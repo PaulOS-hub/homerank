@@ -19,3 +19,27 @@
     border-bottom: 1px solid #f5f5f5;
   }
 }
+
+.city-index {
+  position: absolute;
+  font-size: 5px;
+  display: flex;
+  flex-direction: column;
+  right: 25px;
+  z-index: 1;
+  height: 80%;
+  padding-top: 25px;
+  text-align: center;
+  .city-index-item {
+    flex: 1;
+  }
+  .index-active {
+    color: #fff;
+    background-color: #21b97a;
+    border-radius: 100%;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    line-height: 15px;
+  }
+}

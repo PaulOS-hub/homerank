@@ -51,20 +51,23 @@ export default function Index(props) {
         setNewsList(body)
         const myCity = new window.BMapGL.LocalCity();
         myCity.get(async res => {
-            const { body } = await get("/area/info", {
-                name: "南京"
-            })
-            setCityName(body.label)
-            console.log(body)
-            localStorage.setItem("city", JSON.stringify(body))
-            // 
-            dispatch({
-                type: UPDATELOCATION,
-                data: {
-                    latitude: res.center.lat,
-                    longitude: res.center.lng
-                }
-            })
+            if (!localStorage.getItem("city")) {
+                const { body } = await get("/area/info", {
+                    name: "南京"
+                })
+                setCityName(body.label)
+                localStorage.setItem("city", JSON.stringify(body))
+                // 
+                dispatch({
+                    type: UPDATELOCATION,
+                    data: {
+                        latitude: res.center.lat,
+                        longitude: res.center.lng
+                    }
+                })
+            } else {
+                setCityName(JSON.parse(localStorage.getItem('city')).label)
+            }
         });
         // navigator.geolocation.getCurrentPosition(position => {
         //     // H5只能获取位置信息,经度
