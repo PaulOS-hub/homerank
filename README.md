@@ -13,5 +13,11 @@ yarn start
 
 城市联动组件 参考 react-virtualized
 ![](https://s3.bmp.ovh/imgs/2021/09/d9ce12c008e6311d.png)
-
 ![](https://s3.bmp.ovh/imgs/2021/09/38e076a78de60c96.png)
+
+### 地图找房功能完善 V1.0
+
+根据当前定位,进入地图找房功能,通过 api 聚合解聚功能,层次寻找从区到街道 小区等,可查看房源信息等功能
+![](https://s3.bmp.ovh/imgs/2021/09/500fd3a93407e2f4.png)
+![](https://s3.bmp.ovh/imgs/2021/09/49e7365311ea52e4.png)
+[![4pssCn.md.png](https://z3.ax1x.com/2021/09/12/4pssCn.md.png)](https://imgtu.com/i/4pssCn)
