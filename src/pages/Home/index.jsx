@@ -1,11 +1,7 @@
 import React, { useState, useMemo, useEffect, useReducer, createContext } from 'react'
 import { Route, useHistory, Redirect } from 'react-router-dom'
 import { TabBar } from 'antd-mobile'
-import News from '../News'
-import Index from '../Index'
-import Map from '../../components/Map/Map'
-import HouseList from '../HouseList'
-import Profile from '../Profile'
+import { renderRoutes } from '../../route/renderRoute'
 import './index.scss'
 
 const tabList = [{
@@ -32,7 +28,7 @@ const tabList = [{
 
 
 
-export default function Home() {
+export default function Home(props) {
     const history = useHistory()
     const { pathname } = history.location
     const [selectedTab, setSelectedTab] = useState('')
@@ -59,13 +55,15 @@ export default function Home() {
             </TabBar.Item>
         )
     }
+    console.log(props)
     return (
         <div className="home">
-            <Route exact path="/home" component={Index}></Route>
+            {/* <Route exact path="/home" component={Index}></Route>
             <Route path="/home/news" component={News}></Route>
             <Route path="/home/list" component={HouseList}></Route>
             <Route path="/home/profile" component={Profile}></Route>
-            <Route path="/home/map" component={Map}></Route>
+            <Route path="/home/map" component={Map}></Route> */}
+            {renderRoutes(props.routes || [])}
             <div className="tabbar-class">
                 <TabBar
                     noRenderContent={true} // 不渲染内容
