@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
-import { NavBar, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
+import MyNavBar from '../../components/Navbar';
 import { get } from '../../utils/http/axios'
 import { formatCityData } from '../../utils/utils'
 import Bus from '../../Events'
@@ -99,12 +100,7 @@ export default function CityList() {
     }
     return (
         <div className="city-room ">
-            <NavBar
-                style={{ background: "#f5f6f5", marginTop: '-45px' }}
-                mode="light"
-                icon={<i className="iconfont icon-back" style={{ color: "#333" }} />}
-                onLeftClick={() => history.go(-1)}
-            >城市选择</NavBar>
+            <MyNavBar title="城市选择" goTop />
             <AutoSizer>
                 {({ height, width }) => (
                     <List

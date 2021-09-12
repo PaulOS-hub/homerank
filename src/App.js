@@ -11,11 +11,6 @@ export default function App() {
   const [state, dispatch] = useReducer(reducer, initalState)
   return (
     <AppContext.Provider value={{ state, dispatch: wrapperDispatch(dispatch) }}>
-      {/* <Router>
-        <Route exact path="/" render={() => <Redirect to="/home" />} /> 
-        <Route path="/home" component={Home}></Route>
-        <Route path="/cityList" component={CityList}></Route>
-      </Router> */}
       <Suspense fallback={<div>Loading</div>}>
         <Router>
           {renderRoutes(routerConfig)}

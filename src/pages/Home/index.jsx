@@ -2,30 +2,8 @@ import React, { useState, useMemo, useEffect, useReducer, createContext } from '
 import { Route, useHistory, Redirect } from 'react-router-dom'
 import { TabBar } from 'antd-mobile'
 import { renderRoutes } from '../../route/renderRoute'
+import { tabList } from './constant'
 import './index.scss'
-
-const tabList = [{
-    title: "首页",
-    key: "home",
-    icon: "iconfont icon-ind",
-    currentPathname: "/home"
-}, {
-    title: "找房",
-    key: "find",
-    icon: "iconfont icon-findHouse",
-    currentPathname: "/home/list"
-}, {
-    title: "资讯",
-    key: "news",
-    icon: "iconfont icon-infom",
-    currentPathname: "/home/news"
-}, {
-    title: "我的",
-    key: "my",
-    icon: "iconfont icon-my",
-    currentPathname: "/home/profile"
-}]
-
 
 
 export default function Home(props) {
@@ -33,7 +11,6 @@ export default function Home(props) {
     const { pathname } = history.location
     const [selectedTab, setSelectedTab] = useState('')
     const [hidden, setHidden] = useState(false)
-
     useEffect(() => {
         // 渲染时获取pathname进行赋值
         setSelectedTab(pathname)
@@ -55,7 +32,6 @@ export default function Home(props) {
             </TabBar.Item>
         )
     }
-    console.log(props)
     return (
         <div className="home">
             {/* <Route exact path="/home" component={Index}></Route>

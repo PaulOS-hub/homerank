@@ -3,30 +3,13 @@ import { useHistory } from 'react-router-dom'
 import { Carousel, Flex, Toast } from 'antd-mobile';
 import { get } from '../../utils/http/axios'
 import { BASE_URL } from '../../config'
-import './index.scss'
-import nav1 from '../../assets/img/nav-1.png'
-import nav2 from '../../assets/img/nav-2.png'
-import nav3 from '../../assets/img/nav-3.png'
-import nav4 from '../../assets/img/nav-4.png'
 import Search from '../../components/Search/Search';
 import { UPDATELOCATION } from '../../store/action'
 import { AppContext } from '../../store/context'
+import { navList } from './constant'
 import Bus from '../../Events'
+import './index.scss'
 export default function Index(props) {
-    const navList = [{
-        icon: nav1,
-        title: "整租"
-    }, {
-        icon: nav2,
-        title: "合租",
-        path: '/home/list'
-    }, {
-        icon: nav3,
-        title: "地图找房"
-    }, {
-        icon: nav4,
-        title: "去出租"
-    }]
     const history = useHistory()
     const [cityName, setCityName] = useState('')
     const [imgList, setImgList] = useState([])
@@ -58,13 +41,13 @@ export default function Index(props) {
                 setCityName(body.label)
                 localStorage.setItem("city", JSON.stringify(body))
                 // 
-                dispatch({
-                    type: UPDATELOCATION,
-                    data: {
-                        latitude: res.center.lat,
-                        longitude: res.center.lng
-                    }
-                })
+                // dispatch({
+                //     type: UPDATELOCATION,
+                //     data: {
+                //         latitude: res.center.lat,
+                //         longitude: res.center.lng
+                //     }
+                // })
             } else {
                 setCityName(JSON.parse(localStorage.getItem('city')).label)
             }
