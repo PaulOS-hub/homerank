@@ -2,15 +2,11 @@ import React, { useState, useEffect } from 'react'
 import Search from '../../components/Search/Search'
 import { useHistory } from 'react-router'
 import { NavBar } from 'antd-mobile'
-import Filter  from './components/Filter'
+import Filter from './components/Filter'
 import './index.scss'
 export default function HouseList() {
     const history = useHistory()
-    const [cityName, setCityName] = useState(null)
-    useEffect(() => {
-        const { label } = JSON.parse(localStorage.getItem("city"))
-        setCityName(label)
-    }, []);
+    const cityName = JSON.parse(localStorage.getItem("city")).label
     return (
         <div className="main-list" >
             <div className="header-list">

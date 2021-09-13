@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import FilterTitle from '../FilterTitle'
 import FilterPicker from '../FilterPicker'
 import { get } from '../../../../utils/http/axios'
@@ -11,6 +11,9 @@ const defaultSelectedValObject = {
     more: [],
 }
 export default function Filter() {
+
+
+
     const [titleSelectedStatus, setTitleSelectedStatus] = useState({
         area: false,
         mode: false,
@@ -18,22 +21,37 @@ export default function Filter() {
         more: false
     })
     const [selectedVal, setSelectedVal] = useState({
-        area: defaultSelectedValObject.area,
-        mode: defaultSelectedValObject.mode,
-        price: defaultSelectedValObject.price,
-        more: defaultSelectedValObject.more,
+        area: ['area', 'null'],
+        mode: ['null'],
+        price: ['null'],
+        more: []
     })
-    const [defaultVal, setDefaultVal] = useState(null)
     const [filtersData, setFiltersData] = useState([]) // pickerViewData
+
     const [openType, setOpenType] = useState('')
     // 点击菜单，实现高亮
+    useEffect(() => {
+        console.log(selectedVal[openType])
+    }, [selectedVal, openType]);
     const changeStatus = async type => {
+        console.log("变化了")
+
         // 选中的type值，在这里获取接口
         await getFiltersData()
+        setOpenType(type) // 先打开窗口
         setTitleSelectedStatus({
             ...titleSelectedStatus, [type]: true
         })
-        setOpenType(type)
+    }
+
+    const toggleTitle = type => {
+        const copy_A = JSON.parse(JSON.stringify(selectedVal))
+        const copy_B = JSON.parse(JSON.stringify(defaultSelectedValObject))
+        if (copy_A[type].sort().toString() === copy_B[type].sort().toString()) {
+            setTitleSelectedStatus({
+                ...titleSelectedStatus, [type]: false
+            })
+        }
     }
 
     const getFiltersData = () => {
@@ -48,25 +66,19 @@ export default function Filter() {
     }
 
     // 取消操作
-    const cancelChange = () => {
-        setOpenType('')
-    }
-    const confirmChange = (type, value) => {
-        if (value.sort().toString() === defaultSelectedValObject[type].sort().toString()) {
-            setTitleSelectedStatus({
-                ...titleSelectedStatus, [type]: false
-            })
-        }
+    const cancelChange = type => {
         setOpenType('') // 关闭pickerView
+        toggleTitle(type)
     }
+    const confirmChange = (type) => {
+        setOpenType('') // 关闭pickerView
+        toggleTitle(type)
+    }
+    //更新操作
     const transferSelected = (type, value) => {
         setSelectedVal({ // 更新选中值
             ...selectedVal, [type]: value
         })
-
-        // setTitleSelectedStatus({
-        //     ...titleSelectedStatus, [type]: true
-        // })
     }
     const renderFilterPickComponent = () => {
         // 根据openType值获得数据
@@ -89,7 +101,9 @@ export default function Filter() {
             default:
                 break;
         }
-        let defaultVal = selectedVal[openType] // 默认值
+
+        // 默认值
+        let defaultVal = selectedVal[openType]
         return ['area', 'mode', 'price'].includes(openType) ? <FilterPicker defaultVal={defaultVal} type={openType} cols={cols} filterdata={filterdata} confirmChange={confirmChange}
             transferSelected={transferSelected} cancelChange={cancelChange} /> : null
     }
