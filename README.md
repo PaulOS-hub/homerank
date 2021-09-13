@@ -1,13 +1,15 @@
 # react-hooks 租房 H5 移动端 apps
 
-## 流程 前端
+## .env .env.development介绍
+项目开发中配置的环境变量,代码获取时通过process.env.DEV_BASE_URL来获取，配置成功，重启app
 
+## 流程 前端
 yarn install
 yarn start
 
 ## 流程 后端
 
-拉取 server 代码至本地,启动 mysql,执行 sql 文件
+拉取 server 代码至本地,启动 mysql,执行 sql 文件  
 
 ### 功能这块基本涉及部分百度地图 API 目前版本 V0.3 , 持续开发中
 

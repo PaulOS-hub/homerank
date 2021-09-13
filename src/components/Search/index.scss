@@ -2,11 +2,12 @@
     position: absolute;
     top: 20px;
     width: 90%;
+    font-size: 12px;
     height: 40px;
     display: flex;
     left: 20px;
     .left {
-        background-color: #fff;
+        background-color: transparent;
         border-radius: 5px;
         display: flex;
         align-items: center;
@@ -28,5 +29,8 @@
         display: flex;
         align-items: center;
         margin-left: 15px;
+    }
+    .icon-colors {
+        color: #3fc28c;
     }
 }

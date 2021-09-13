@@ -4,11 +4,11 @@ import { SearchBar } from 'antd-mobile'
 import { UPDATELOCATION } from '../../store/action'
 import { AppContext } from '../../store/context'
 import './index.scss'
-export default function Search({ cityName, transferCity }) {
+export default function Search({ cityName, transferCity, classNamess }) {
     const { dispatch, state } = useContext(AppContext);
     const history = useHistory()
     const gotoCityList = () => {
-        transferCity()
+        // transferCity()
         history.push("/cityList")
     }
     const gotoMap = () => {
@@ -22,8 +22,8 @@ export default function Search({ cityName, transferCity }) {
         history.push("/home/map")
     }
     return (
-        <div className="search">
-            <div className="left">
+        <div className={['search'].join(' ')}>
+            <div className={["left", classNamess || ''].join(' ')}>
                 <div className="city" onClick={gotoCityList}>
                     <span className="name">{cityName}</span>
                     <i className="iconfont icon-arrow"></i>
@@ -33,7 +33,7 @@ export default function Search({ cityName, transferCity }) {
                 </div>
             </div>
             <div className="location" onClick={gotoMap}>
-                <i className="iconfont icon-map"></i>
+                <i className="iconfont icon-map icon-colors"></i>
             </div>
         </div>
     )

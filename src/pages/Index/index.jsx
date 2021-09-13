@@ -15,11 +15,11 @@ export default function Index(props) {
     const [imgList, setImgList] = useState([])
     const [groupList, setGroupList] = useState([])
     const [newsList, setNewsList] = useState([])
+
     const { dispatch, state } = useContext(AppContext);
     useEffect(async () => {
         const { body } = await get("/home/swiper")
         setImgList(body)
-
     }, [])
     useEffect(async () => {
         const { body } = await get("/home/groups", {
@@ -83,6 +83,9 @@ export default function Index(props) {
     const goDetail = item => {
         history.push(item.path)
     }
+    const imgDoneflag = useMemo(() => {
+        return imgList && imgList.length > 0 ? true : false
+    }, [imgList])
     const renderFlexItem = data => {
         return data.map(item =>
             <Flex.Item key={item.icon} onClick={() => { goDetail(item) }}>
@@ -98,9 +101,7 @@ export default function Index(props) {
         )
 
     }
-    const imgDoneflag = useMemo(() => {
-        return imgList.length > 0 ? true : false
-    }, [imgList])
+
     const transferCity = () => {
         // Bus.emit('getCurrentCity', cityName);
     }
@@ -111,7 +112,7 @@ export default function Index(props) {
                     {imgDoneflag ? <Carousel autoplay infinite>
                         {renderImgs(imgList)}
                     </Carousel> : ''}
-                    <Search transferCity={transferCity} cityName={cityName} />
+                    <Search  cityName={cityName} />
                 </div>
                 <Flex>
                     {renderFlexItem(navList)}

@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import { BASE_URL, TIMEOUT } from '../../config'
 axios.defaults.timeout = TIMEOUT;
-axios.defaults.baseURL = BASE_URL;
+axios.defaults.baseURL = BASE_URL;  // dev BASE_URL
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 axios.interceptors.request.use(config => {
     // 1.发送网络请求时候,在界面的中间位置显示loading组件

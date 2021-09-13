@@ -108,7 +108,6 @@ export default function Map(props) {
         label.addEventListener('click', () => {
             // 调用 renderOverlays 方法，获取该区域下的房源数据
             renderOverlays(id)
-
             // 放大地图，以当前点击的覆盖物为中心放大地图
             myref.current.centerAndZoom(point, zoom)
 

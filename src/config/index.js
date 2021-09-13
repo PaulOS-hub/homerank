@@ -1,2 +1,3 @@
-export const BASE_URL = "http://localhost:8009"
-export const TIMEOUT = 20000    
+const { REACT_APP_DEV_BASE_URL, REACT_APP_DEV_TIMEOUT } = process.env
+export const BASE_URL = REACT_APP_DEV_BASE_URL
+export const TIMEOUT = REACT_APP_DEV_TIMEOUT
