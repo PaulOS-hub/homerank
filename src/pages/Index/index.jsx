@@ -23,20 +23,20 @@ export default function Index(props) {
     }, [])
     useEffect(async () => {
         const { body } = await get("/home/groups", {
-            area: 'AREA|88cff55c-aaa4-e2e0' // 地区ID
+            area: JSON.parse(localStorage.getItem("city")).value // 地区ID
         })
         setGroupList(body)
     }, [])
     useEffect(async () => {
         const { body } = await get("/home/news", {
-            area: 'AREA|88cff55c-aaa4-e2e0' // 地区ID
+            area: JSON.parse(localStorage.getItem("city")).value // 地区ID
         })
         setNewsList(body)
         const myCity = new window.BMapGL.LocalCity();
         myCity.get(async res => {
             if (!localStorage.getItem("city")) {
                 const { body } = await get("/area/info", {
-                    name: "南京"
+                    name: JSON.parse(localStorage.getItem("city")).label
                 })
                 setCityName(body.label)
                 localStorage.setItem("city", JSON.stringify(body))
@@ -112,7 +112,7 @@ export default function Index(props) {
                     {imgDoneflag ? <Carousel autoplay infinite>
                         {renderImgs(imgList)}
                     </Carousel> : ''}
-                    <Search  cityName={cityName} />
+                    <Search cityName={cityName} />
                 </div>
                 <Flex>
                     {renderFlexItem(navList)}

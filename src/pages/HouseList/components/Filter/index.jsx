@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import FilterTitle from '../FilterTitle'
 import FilterPicker from '../FilterPicker'
+import FilterMore from '../FilterMore'
 import { get } from '../../../../utils/http/axios'
 import './index.scss'
 
@@ -34,16 +35,15 @@ export default function Filter() {
         console.log(selectedVal[openType])
     }, [selectedVal, openType]);
     const changeStatus = async type => {
-        console.log("变化了")
-
         // 选中的type值，在这里获取接口
         await getFiltersData()
         setOpenType(type) // 先打开窗口
         setTitleSelectedStatus({
             ...titleSelectedStatus, [type]: true
         })
-    }
 
+    }
+    // 二次渲染title高亮方法
     const toggleTitle = type => {
         const copy_A = JSON.parse(JSON.stringify(selectedVal))
         const copy_B = JSON.parse(JSON.stringify(defaultSelectedValObject))
@@ -64,12 +64,12 @@ export default function Filter() {
             resolve()
         })
     }
-
     // 取消操作
     const cancelChange = type => {
         setOpenType('') // 关闭pickerView
         toggleTitle(type)
     }
+    // 确认操作（数据传参可用）
     const confirmChange = (type) => {
         setOpenType('') // 关闭pickerView
         toggleTitle(type)
@@ -110,12 +110,26 @@ export default function Filter() {
     const renderMask = () => {
         return ['area', 'mode', 'price'].includes(openType) ? <div className="mask"></div> : null
     }
+    const renderFilterMore = () => {
+        const { roomType, oriented, floor, characteristic
+        } = filtersData
+        const data = {
+            roomType, oriented, floor, characteristic
+        }
+        console.log(data)
+        if (openType === 'more') {
+            return <FilterMore titleSelectedStatus={titleSelectedStatus} data={data} />
+        } else {
+            return null
+        }
+    }
     return (
         <div className="root">
             {renderMask()}
             <div className="content">
                 <FilterTitle changeStatus={changeStatus} titleSelectedStatus={titleSelectedStatus} />
                 {renderFilterPickComponent()}
+                {renderFilterMore()}
             </div>
         </div>
     )
