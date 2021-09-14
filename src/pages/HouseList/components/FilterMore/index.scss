@@ -1,0 +1,65 @@
+.rootss {
+    position: relative;
+}
+.mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+.ouuter {
+    z-index: 999999;
+    background: rgb(255, 255, 255);
+    width: 70%;
+    height: 100vh;
+    right: 0;
+    top:-88px;
+    position: absolute;
+}
+.tags {
+    width: 100%;
+    overflow: auto;
+    height: 85%;
+    z-index: 99999;
+}
+.dl {
+    height: 100%;
+    padding: 10px;
+}
+.dd {
+    border-bottom: 1px solid #f5f6f5;
+    padding-bottom: 10px;
+}
+.dt {
+    font-size: 14px;
+    color: #666;
+    padding: 10px 0 0 5px;
+}
+.tag {
+    display: inline-block;
+    width: 65px;
+    height: 35px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 12px;
+    margin: 5px;
+    border-radius: 5px;
+    color: #666;
+    background-color: #fff;
+    border: 1px solid rgb(63, 194, 140);
+}
+.tagActive {
+    color: #fff;
+    background-color: #3fc28c;
+    border: 1px solid rgb(63, 194, 140);
+}
+.myfooter {
+    width: 70%;
+    position: fixed;
+    bottom: 50px;
+    left: 30%;
+    z-index: 99999;
+    background-color: #fff;
+}

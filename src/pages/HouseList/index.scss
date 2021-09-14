@@ -1,6 +1,7 @@
 $commanColor: #f5f6f5;
 .main-list {
     background-color: #fff;
+    overflow:hidden;
     height: 100%;
     width: 100%;
     .header-list {
@@ -22,4 +23,10 @@ $commanColor: #f5f6f5;
         width: 82%;
         font-size: 12px;
     }
+}
+.loading{
+    line-height: 120px;
+    text-align: center;
+    height: 110px;
+    background-color: #f5f6f5;
 }

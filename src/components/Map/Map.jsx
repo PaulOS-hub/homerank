@@ -4,6 +4,7 @@ import { Toast } from 'antd-mobile'
 import { Link } from 'react-router-dom'
 import { BASE_URL } from '../../config'
 import { get } from '../../utils/http/axios'
+import HouseItem from '../HouseItem'
 import { AppContext } from '../../store/context'
 import './index.scss'
 import { func } from 'assert-plus'
@@ -43,42 +44,6 @@ export default function Map(props) {
             // 关闭 loading
             Toast.hide()
         }
-    }
-
-    // 封装渲染房屋列表的方法
-    function renderHousesList() {
-        return housesList.map(item => (
-            <div className="house" key={item.houseCode}>
-                <div className="imgWrap">
-                    <img
-                        className="img"
-                        src={BASE_URL + item.houseImg}
-                        alt=""
-                    />
-                </div>
-                <div className="content">
-                    <h3 className="title">{item.title}</h3>
-                    <div className="desc">{item.desc}</div>
-                    <div>
-                        {/* ['近地铁', '随时看房'] */}
-                        {item.tags.map((tag, index) => {
-                            // const tagClass = 'tag' + (index + 1)
-                            return (
-                                <span
-                                    className={['tag', 'tag' + (index + 1)].join(' ')}
-                                    key={tag}
-                                >
-                                    {tag}
-                                </span>
-                            )
-                        })}
-                    </div>
-                    <div className="price">
-                        <span className="priceNum">{item.price}</span> 元/月
-                    </div>
-                </div>
-            </div>
-        ))
     }
 
     // 创建区、镇覆盖物
@@ -261,6 +226,9 @@ export default function Map(props) {
         }
     }
 
+    const renderHouseItem = () => {
+        return housesList.map(item => <HouseItem key={item.houseCode} house={item} />)
+    }
 
     useEffect(async () => {
         initMap()
@@ -286,7 +254,7 @@ export default function Map(props) {
 
                 <div className="houseItems">
                     {/* 房屋结构 */}
-                    {renderHousesList()}
+                    {renderHouseItem()}
                 </div>
             </div>
         </div>
