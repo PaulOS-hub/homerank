@@ -9,10 +9,11 @@ import Filter from './components/Filter'
 import { List, AutoSizer, WindowScroller, InfiniteLoader } from 'react-virtualized'; //导入list组件
 import './index.scss'
 import { get } from '../../utils/http/axios'
+import {getCityInfo} from '../../utils/utils'
 export default function HouseList() {
     const history = useHistory()
     const [canFlow, setCanFlow] = useState(true)
-    const cityName = JSON.parse(localStorage.getItem("city")).label
+    const cityName = getCityInfo().label
     const [count, setCount] = useState(0)
     const [filters, setFilters] = useState({})
     const [houseList, setHouseList] = useState([])
@@ -21,7 +22,7 @@ export default function HouseList() {
         setFilters(filters)
         const { body } = await get("/houses", {
             ...filters,
-            cityId: JSON.parse(localStorage.getItem("city")).value,
+            cityId: getCityInfo().value,
             start: 1,
             end: 20
         })
@@ -74,7 +75,7 @@ export default function HouseList() {
                     <Search classNamess={'searchlist'} cityName={cityName} />
                 </NavBar>
             </div>
-            <Sticky>
+            <Sticky height={36}>
                 <Filter setFlow={setFlow} onFilter={onFilter}></Filter>
             </Sticky>
             <InfiniteLoader
@@ -105,13 +106,11 @@ export default function HouseList() {
                                         )}
                                     </AutoSizer>
                                 )
-
                             }
                         </WindowScroller>
                     )
                 }
             </InfiniteLoader>
-
         </div>
     )
 }

@@ -8,6 +8,7 @@ import { UPDATELOCATION } from '../../store/action'
 import { AppContext } from '../../store/context'
 import { navList } from './constant'
 import Bus from '../../Events'
+import { getCityInfo } from '../../utils/utils';
 import './index.scss'
 export default function Index(props) {
     const history = useHistory()
@@ -23,13 +24,13 @@ export default function Index(props) {
     }, [])
     useEffect(async () => {
         const { body } = await get("/home/groups", {
-            area: JSON.parse(localStorage.getItem("city")).value // 地区ID
+            area: getCityInfo().value // 地区ID
         })
         setGroupList(body)
     }, [])
     useEffect(async () => {
         const { body } = await get("/home/news", {
-            area: JSON.parse(localStorage.getItem("city")).value // 地区ID
+            area: getCityInfo().value // 地区ID
         })
         setNewsList(body)
         const myCity = new window.BMapGL.LocalCity();
@@ -49,7 +50,7 @@ export default function Index(props) {
                 //     }
                 // })
             } else {
-                setCityName(JSON.parse(localStorage.getItem('city')).label)
+                setCityName(getCityInfo().label)
             }
         });
         // navigator.geolocation.getCurrentPosition(position => {

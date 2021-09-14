@@ -7,6 +7,7 @@ import { get } from '../../utils/http/axios'
 import HouseItem from '../HouseItem'
 import { AppContext } from '../../store/context'
 import './index.scss'
+import { getCityInfo } from '../../utils/utils'
 import { func } from 'assert-plus'
 // import styles from './index.module.scss' // 模块css用法,以obj方式引用
 const labelStyle = {
@@ -176,7 +177,7 @@ export default function Map(props) {
         // 获取当前定位城市
         const BMap = window.BMap
         const BMapGL = window.BMapGL
-        const { label, value } = JSON.parse(localStorage.getItem('city'))
+        const { label, value } = getCityInfo()
         // console.log(label, value)
         // 初始化地图实例
         const map = new window.BMapGL.Map('container');

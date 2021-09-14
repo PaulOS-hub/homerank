@@ -9,7 +9,7 @@ export default function Sticky(props) {
         if (top < 0) {
             // 吸顶
             refContent.current.classList.add("fixeded")
-            refHolder.current.style.height = "36px"
+            refHolder.current.style.height = props.height + 'px'
         } else {
             refContent.current.classList.remove("fixeded")
             refHolder.current.style.height = "0px"

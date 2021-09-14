@@ -3,6 +3,7 @@ import FilterTitle from '../FilterTitle'
 import FilterPicker from '../FilterPicker'
 import FilterMore from '../FilterMore'
 import { get } from '../../../../utils/http/axios'
+import { getCityInfo } from '../../../../utils/utils'
 import './index.scss'
 
 const defaultSelectedValObject = {
@@ -76,7 +77,7 @@ export default function Filter({ onFilter,setFlow }) {
 
     const getFiltersData = () => {
         return new Promise(async resolve => {
-            const id = JSON.parse(localStorage.getItem("city")).value
+            const id = getCityInfo().value
             const { body } = await get("/houses/condition", {
                 id
             })

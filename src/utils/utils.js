@@ -17,3 +17,6 @@ export const formatCityData = data => {
         cityIndex
     }
 }
+export const getCityInfo = () => {
+    return JSON.parse(localStorage.getItem("city"))
+}
