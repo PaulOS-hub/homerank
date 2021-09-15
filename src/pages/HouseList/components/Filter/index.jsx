@@ -12,13 +12,16 @@ const defaultSelectedValObject = {
     price: ['null'],//不限
     more: [],
 }
-export default function Filter({ onFilter,setFlow }) {
+export default function Filter({ onFilter, setFlow }) {
     const [titleSelectedStatus, setTitleSelectedStatus] = useState({
         area: false,
         mode: false,
         price: false,
         more: false
     })
+    const [showPicker, setShowPicker] = useState(false)
+    const [showMore, setShowMore] = useState(false)
+    const [preValue, setPreValue] = useState()
     const [flagShowLoft, setFlagShowLoft] = useState('')
     const [selectedVal, setSelectedVal] = useState({
         area: ['area', 'null'],
@@ -36,8 +39,10 @@ export default function Filter({ onFilter,setFlow }) {
         }
     }, [selectedVal.more]);
 
+
+
     useEffect(() => {
-        // 筛选条件发生改变
+        // 筛选条件发生改变,页面刷新跑一次.
         const filters = {}
         const { area, mode, price, more } = selectedVal
         const areaKey = area[0]
@@ -49,10 +54,13 @@ export default function Filter({ onFilter,setFlow }) {
         filters.mode = mode[0]
         filters.price = price[0]
         filters.more = more.join(',')
+        if (openType) toggleTitle(openType)
         onFilter(filters)
     }, [selectedVal]);
     const changeStatus = async type => {
         setFlow(false)
+        if (type !== 'more') setShowPicker(true)
+        else setShowMore(true)
         // 选中的type值，在这里获取接口
         await getFiltersData()
         setOpenType(type) // 先打开窗口
@@ -87,7 +95,8 @@ export default function Filter({ onFilter,setFlow }) {
     }
     // 取消操作
     const cancelChange = (type, value) => {
-        setOpenType("")
+        if (type === 'more') setShowMore(false)
+        else setShowPicker(false)
         toggleTitle(type)
         if (type === 'more' && value) {
             setSelectedVal({
@@ -96,12 +105,11 @@ export default function Filter({ onFilter,setFlow }) {
             setFlagShowLoft(type)
         }
         setFlow(true)
-
     }
     // 确认操作（数据传参可用）
     const confirmChange = (type, value) => {
-        setOpenType("")
-        toggleTitle(type)
+        if (type === 'more') setShowMore(false)
+        else setShowPicker(false)
         if (type === 'more' && value) {
             setSelectedVal({
                 ...selectedVal, [type]: value
@@ -109,13 +117,17 @@ export default function Filter({ onFilter,setFlow }) {
             setFlagShowLoft(type)
         }
         setFlow(true)
-
     }
     //更新操作
     const transferSelected = (type, value) => {
-        setSelectedVal({ // 更新选中值
-            ...selectedVal, [type]: value
+        setPreValue(selectedVal[type]) // 保存之前值
+        console.log(type, value)
+        setSelectedVal(selectedVal => {
+            return { // 更新选中值
+                ...selectedVal, [type]: value
+            }
         })
+
     }
     const renderFilterPickComponent = () => {
         // 根据openType值获得数据
@@ -141,12 +153,12 @@ export default function Filter({ onFilter,setFlow }) {
 
         // 默认值
         let defaultVal = selectedVal[openType]
-        return ['area', 'mode', 'price'].includes(openType) ? <FilterPicker defaultVal={defaultVal} type={openType} cols={cols} filterdata={filterdata} confirmChange={confirmChange}
-            transferSelected={transferSelected} cancelChange={cancelChange} /> : null
+        return showPicker ? <FilterPicker defaultVal={defaultVal} type={openType} cols={cols} filterdata={filterdata} confirmChange={confirmChange}
+            preValue={preValue} transferSelected={transferSelected} cancelChange={cancelChange} /> : null
     }
 
     const renderMask = () => {
-        return ['area', 'mode', 'price'].includes(openType) ? <div className="mask"></div> : null
+        return showPicker ? <div className="mask"></div> : null
     }
     const renderFilterMore = () => {
         const { roomType, oriented, floor, characteristic
@@ -155,11 +167,8 @@ export default function Filter({ onFilter,setFlow }) {
             roomType, oriented, floor, characteristic
         }
         const defaultSelected = selectedVal['more']
-        if (openType === 'more') {
-            return <FilterMore defaultSelected={defaultSelected} confirmChange={confirmChange} cancelChange={cancelChange} titleSelectedStatus={titleSelectedStatus} data={data} />
-        } else {
-            return null
-        }
+        return showMore ? <FilterMore defaultSelected={defaultSelected} confirmChange={confirmChange} cancelChange={cancelChange} titleSelectedStatus={titleSelectedStatus} data={data} /> : null
+
     }
     return (
         <div className="root">

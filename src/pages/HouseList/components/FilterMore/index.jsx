@@ -21,27 +21,27 @@ export default function FilterMore({ defaultSelected, data, titleSelectedStatus,
     }
 
     const renderFilters = (data) => {
-        return data.map(item => {
+        return data ? data.map(item => {
             const isSelected = selectMoreValue.indexOf(item.value) > -1
             return <span
                 onClick={() => { onTagClick(item.value) }}
                 key={item.value}
                 className={['tag', isSelected ? 'tagActive' : ''].join(' ')}
             >{item.label}</span>
-        })
+        }) : null
     }
     const confirm = () => {
         confirmChange('more', selectMoreValue)
     }
     const cancel = () => {
         setSelectMoreValue([]) // 清空value值
-        cancelChange('more', selectMoreValue)
+        cancelChange('more')
     }
     console.log(selectMoreValue)
     return (
         <div className="rootss">
             <div className="mask"></div>
-            <div className="ouuter" style={{background:"#fff"}}>
+            <div className="ouuter" style={{ background: "#fff" }}>
                 <div className="tags">
                     <dl className="dl">
                         <dt className="dt">户型</dt>
