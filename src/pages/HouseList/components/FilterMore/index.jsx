@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import FilterFooter from '../../../../components/FilterFooter'
 import './index.scss'
-export default function FilterMore({ defaultSelected, data, titleSelectedStatus, cancelChange, confirmChange }) {
+export default function FilterMore({ rightPX, defaultSelected, data, titleSelectedStatus, cancelChange, confirmChange }) {
     // console.log(data)
     const [selectMoreValue, setSelectMoreValue] = useState([])
     useEffect(() => {
@@ -37,11 +37,10 @@ export default function FilterMore({ defaultSelected, data, titleSelectedStatus,
         setSelectMoreValue([]) // 清空value值
         cancelChange('more')
     }
-    console.log(selectMoreValue)
     return (
         <div className="rootss">
-            <div className="mask"></div>
-            <div className="ouuter" style={{ background: "#fff" }}>
+            {/* <div className="mask"></div> */}
+            <div className="ouuter" style={{ background: "#fff", right: rightPX ? rightPX + 'px' : '0px' }}>
                 <div className="tags">
                     <dl className="dl">
                         <dt className="dt">户型</dt>

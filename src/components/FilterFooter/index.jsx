@@ -9,9 +9,11 @@ export default function FilterFooter({ classNamess, confirm, cancel, cancelText 
         confirm()
     }
     return (
-        <Flex className={["root-footer", classNamess || ""].join(' ')}>
-            <Button onClick={cancelButton} style={{ fontSize: '14px', width: '40%' }}>{cancelText}</Button>
-            <Button onClick={confirmButton} type="primary" style={{ background: '#3fc28c', fontSize: '14px', width: '60%' }}>{confirmText}</Button>
-        </Flex>
+        <div style={{ width: "100%", position: 'absolute', zIndex: 999 }}> {/*解决z-index不起作用,将父元素设置为绝对定位 */}
+            <Flex className={["root-footer", classNamess || ""].join(' ')}>
+                <Button onClick={cancelButton} style={{ fontSize: '14px', width: '40%' }}>{cancelText}</Button>
+                <Button onClick={confirmButton} type="primary" style={{ background: '#3fc28c', fontSize: '14px', width: '60%' }}>{confirmText}</Button>
+            </Flex>
+        </div>
     )
 }

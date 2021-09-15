@@ -5,7 +5,7 @@ import FilterMore from '../FilterMore'
 import { get } from '../../../../utils/http/axios'
 import { getCityInfo } from '../../../../utils/utils'
 import './index.scss'
-
+import { Motion, spring } from 'react-motion'
 const defaultSelectedValObject = {
     area: ['area', 'null'],
     mode: ['null'],
@@ -21,6 +21,7 @@ export default function Filter({ onFilter, setFlow }) {
     })
     const [showPicker, setShowPicker] = useState(false)
     const [showMore, setShowMore] = useState(false)
+    const [showMask, setShowMask] = useState(false)
     const [preValue, setPreValue] = useState()
     const [flagShowLoft, setFlagShowLoft] = useState('')
     const [selectedVal, setSelectedVal] = useState({
@@ -32,15 +33,13 @@ export default function Filter({ onFilter, setFlow }) {
     const [filtersData, setFiltersData] = useState([]) // pickerViewData
 
     const [openType, setOpenType] = useState('') // 记录上一次more的参数
+
     // 点击菜单，实现高亮
     useEffect(() => {
         if (flagShowLoft) {
             toggleTitle(flagShowLoft)
         }
     }, [selectedVal.more]);
-
-
-
     useEffect(() => {
         // 筛选条件发生改变,页面刷新跑一次.
         const filters = {}
@@ -59,8 +58,13 @@ export default function Filter({ onFilter, setFlow }) {
     }, [selectedVal]);
     const changeStatus = async type => {
         setFlow(false)
-        if (type !== 'more') setShowPicker(true)
-        else setShowMore(true)
+        if (type !== 'more') {
+            setShowPicker(true)
+            setShowMask(true)
+        } else {
+            setShowMask(true)
+            setShowMore(true)
+        }
         // 选中的type值，在这里获取接口
         await getFiltersData()
         setOpenType(type) // 先打开窗口
@@ -95,8 +99,14 @@ export default function Filter({ onFilter, setFlow }) {
     }
     // 取消操作
     const cancelChange = (type, value) => {
-        if (type === 'more') setShowMore(false)
-        else setShowPicker(false)
+        if (type === 'more') {
+            setShowMore(false)
+            setShowMask(false)
+        } else {
+            setShowPicker(false)
+            setShowMask(false)
+
+        }
         toggleTitle(type)
         if (type === 'more' && value) {
             setSelectedVal({
@@ -108,8 +118,14 @@ export default function Filter({ onFilter, setFlow }) {
     }
     // 确认操作（数据传参可用）
     const confirmChange = (type, value) => {
-        if (type === 'more') setShowMore(false)
-        else setShowPicker(false)
+        if (type === 'more') {
+            setShowMore(false)
+            setShowMask(false)
+        } else {
+            setShowPicker(false)
+            setShowMask(false)
+
+        }
         if (type === 'more' && value) {
             setSelectedVal({
                 ...selectedVal, [type]: value
@@ -153,12 +169,27 @@ export default function Filter({ onFilter, setFlow }) {
 
         // 默认值
         let defaultVal = selectedVal[openType]
-        return showPicker ? <FilterPicker defaultVal={defaultVal} type={openType} cols={cols} filterdata={filterdata} confirmChange={confirmChange}
-            preValue={preValue} transferSelected={transferSelected} cancelChange={cancelChange} /> : null
+        return showPicker ?
+            <FilterPicker defaultVal={defaultVal} type={openType} cols={cols} filterdata={filterdata} confirmChange={confirmChange}
+                preValue={preValue} transferSelected={transferSelected} cancelChange={cancelChange} />
+            : null
     }
 
     const renderMask = () => {
-        return showPicker ? <div className="mask"></div> : null
+
+        // return showPicker ? < div className="mask" ></div >
+        //     : null
+        return <Motion defaultStyle={{ opacity: 0 }} style={{ opacity: showMask ? spring(1) : spring(0) }}>
+            {
+                interpolatingStyle => {
+                    if (interpolatingStyle.opacity === 0) {
+                        return null
+                    } else {
+                        return < div style={interpolatingStyle} className="mask" ></div >
+                    }
+                }
+            }
+        </Motion>
     }
     const renderFilterMore = () => {
         const { roomType, oriented, floor, characteristic
@@ -167,8 +198,13 @@ export default function Filter({ onFilter, setFlow }) {
             roomType, oriented, floor, characteristic
         }
         const defaultSelected = selectedVal['more']
-        return showMore ? <FilterMore defaultSelected={defaultSelected} confirmChange={confirmChange} cancelChange={cancelChange} titleSelectedStatus={titleSelectedStatus} data={data} /> : null
-
+        return <Motion defaultStyle={{ right: -2000 }} style={{ right: showMore ? spring(0) : spring(-2000) }}>
+            {
+                interpolatingStyle => {
+                    return <FilterMore rightPX={interpolatingStyle.right} defaultSelected={defaultSelected} confirmChange={confirmChange} cancelChange={cancelChange} titleSelectedStatus={titleSelectedStatus} data={data} />
+                }
+            }
+        </Motion>
     }
     return (
         <div className="root">

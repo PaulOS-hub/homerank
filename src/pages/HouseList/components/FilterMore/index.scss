@@ -1,20 +1,13 @@
 .rootss {
     position: relative;
 }
-.mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
-}
+
 .ouuter {
     z-index: 999999;
     background: rgb(255, 255, 255);
-    width: 70%;
+    width: 72%;
     height: 100vh;
-    right: 0;
+    // right: -262px;
     top:-88px;
     position: absolute;
 }
@@ -59,7 +52,7 @@
     width: 70%;
     position: fixed;
     bottom: 50px;
-    left: 30%;
+    // right: -262px;
     z-index: 99999;
     background-color: #fff;
 }

@@ -65,7 +65,9 @@ export default function CityList() {
         console.log(cityList)
         setCityList(cityList)
         setCityIndex(cityIndex)
-        myRef.current.measureAllRows() // 提前计算每一行的高度,解决下面的bug跳转可能出现的问题
+        setTimeout(() => {
+            myRef.current.measureAllRows() // 提前计算每一行的高度,解决下面的bug跳转可能出现的问题   
+        });
     }, [])
 
     const gotoLine = (e) => {

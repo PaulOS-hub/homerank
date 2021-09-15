@@ -20,3 +20,7 @@ export const formatCityData = data => {
 export const getCityInfo = () => {
     return JSON.parse(localStorage.getItem("city"))
 }
+export const an1 = ({
+    from: { opacity: 0 },
+    to: { opacity: 1 }
+})

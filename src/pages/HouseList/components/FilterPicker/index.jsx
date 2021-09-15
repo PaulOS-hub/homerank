@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { PickerView } from 'antd-mobile'
 import FilterFooter from '../../../../components/FilterFooter';
 import './index.scss'
+
 export default function FilterPicker({ preValue, defaultVal, type, cols, filterdata, cancelChange, confirmChange, transferSelected }) {
     const [curVal, setCurVal] = useState()
 
@@ -10,7 +11,7 @@ export default function FilterPicker({ preValue, defaultVal, type, cols, filterd
             setCurVal(defaultVal)
         }
     }, [defaultVal])
-  
+
     const getValue = value => {
         setCurVal(value)
     }
@@ -27,6 +28,6 @@ export default function FilterPicker({ preValue, defaultVal, type, cols, filterd
                 cols={cols}
             />
             <FilterFooter cancel={() => { cancelChange(type) }} confirm={transferData} />
-        </div>
+        </div >
     )
 }
