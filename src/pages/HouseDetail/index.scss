@@ -1,0 +1,75 @@
+.info-desc {
+    .first-part {
+        background-color: #fff;
+        padding: 10px 10px;
+        border-radius: 5px;
+        .info-desc-list {
+            border-bottom: 1px solid #f5f6f5;
+            padding-bottom: 10px;
+        }
+        .info-desc-title {
+            // 单行文本溢出省略号
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+        .desc-tagss {
+            margin-top: 10px;
+            display: inline-block;
+            font-size: 12px;
+            border-radius: 3px;
+            padding: 4px 5px;
+            margin-right: 5px;
+            line-height: 12px;
+        }
+        .desc-tag1 {
+            color: #39becd;
+            background: #e1f5f8;
+        }
+        .desc-tag2 {
+            color: #3fc28c;
+            background: #e1f5ed;
+        }
+        .desc-tag3 {
+            color: #5aabfd;
+            background: #e6f2ff;
+        }
+        .info-desc-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            border-bottom: 1px solid #f5f6f5;
+            padding: 10px 0;
+            .price {
+                font-size: 16px;
+                display: inline-block;
+                color: orangered;
+            }
+
+            .price-center {
+                text-align: center;
+            }
+        }
+        .price-info {
+            font-size: 5px;
+            color: #999;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .info-desc-type {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            li {
+                width: 50%;
+                padding: 10px 0;
+                .type-info{
+                    color:#444;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

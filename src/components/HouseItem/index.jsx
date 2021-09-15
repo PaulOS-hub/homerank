@@ -1,10 +1,11 @@
 import React, { } from "react";
 import { BASE_URL } from '../../config'
 import './index.scss'
-export default function HouseItem({ house }) {
+export default function HouseItem({ house, changeHouse }) {
+
     if (!house) return <div>213</div>
     return (
-        <div className="house" key={house.houseCode}>
+        <div onClick={() => { changeHouse(house) }} className="house" key={house.houseCode}>
             <div className="imgWrap">
                 <img
                     className="img"

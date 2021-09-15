@@ -9,6 +9,7 @@ const News = asyncComponent(() => import('../pages/News'))
 const Index = asyncComponent(() => import('../pages/Index'))
 const HouseList = asyncComponent(() => import('../pages/HouseList'))
 const Profile = asyncComponent(() => import('../pages/Profile'))
+const HouseDetail = asyncComponent(() => import('../pages/HouseDetail'))
 
 const routerConfig = [
     {
@@ -19,26 +20,31 @@ const routerConfig = [
     {
         path: "/",
         component: Home,
-        children: [{
-            path: "/home",
-            component: Index,
-            exact: true
-        },
-        {
-            path: "/home/news",
-            component: News
-        },
-        {
-            path: "/home/list",
-            component: HouseList
+        children: [
+            {
+                path: "/home",
+                component: Index,
+                exact: true
+            },
+            {
+                path: "/home/news",
+                component: News
+            },
+            {
+                path: "/home/list",
+                component: HouseList
 
-        }, {
-            path: "/home/profile",
-            component: Profile
-        }, {
-            path: "/home/map",
-            component: Map
-        }]
+            }, {
+                path: "/home/profile",
+                component: Profile
+            }, {
+                path: "/home/map",
+                component: Map
+            }, {
+                path: "/home/detail/:id",
+                component: HouseDetail
+            }
+        ]
     },
 
 ]

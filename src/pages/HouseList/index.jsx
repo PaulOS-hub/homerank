@@ -53,6 +53,10 @@ export default function HouseList() {
     const isRowLoaded = ({ index }) => {
         return !!houseList[index] //因为 !null !undefined 为true, 所以用 !! => 强制转换，就是减少了判断null undefin的的过程，有值就true ，没有就false
     }
+    const changeHouse = item => {
+        const { houseCode } = item // 房源id
+        history.push(`/home/detail/${houseCode}`)
+    }
     // 加载更多项
     const loadMoreRows = ({ startIndex, stopIndex }) => {
         // 返回值 promise ,数据加载完成时来调用
@@ -82,7 +86,7 @@ export default function HouseList() {
         style, //指定每一行的位置
     }) => {
         const house = houseList[index]
-        return house ? <HouseItem house={house} key={key} style={style} /> : <div key={key} style={style}><p className="loading">123</p></div>
+        return house ? <HouseItem changeHouse={changeHouse} house={house} key={key} style={style} /> : <div key={key} style={style}><p className="loading">123</p></div>
     }
     return (
         <div className="main-list" style={{ overflow: canFlow ? 'auto' : 'hidden' }}>

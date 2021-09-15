@@ -5,7 +5,7 @@ import FilterMore from '../FilterMore'
 import { get } from '../../../../utils/http/axios'
 import { getCityInfo } from '../../../../utils/utils'
 import './index.scss'
-import { Motion, spring } from 'react-motion'
+import { Motion, TransitionMotion, spring } from 'react-motion'
 const defaultSelectedValObject = {
     area: ['area', 'null'],
     mode: ['null'],
@@ -145,6 +145,8 @@ export default function Filter({ onFilter, setFlow }) {
         })
 
     }
+   
+
     const renderFilterPickComponent = () => {
         // 根据openType值获得数据
         const { area, subway, rentType, price } = filtersData
@@ -166,19 +168,16 @@ export default function Filter({ onFilter, setFlow }) {
             default:
                 break;
         }
-
         // 默认值
         let defaultVal = selectedVal[openType]
         return showPicker ?
             <FilterPicker defaultVal={defaultVal} type={openType} cols={cols} filterdata={filterdata} confirmChange={confirmChange}
                 preValue={preValue} transferSelected={transferSelected} cancelChange={cancelChange} />
             : null
+
     }
 
     const renderMask = () => {
-
-        // return showPicker ? < div className="mask" ></div >
-        //     : null
         return <Motion defaultStyle={{ opacity: 0 }} style={{ opacity: showMask ? spring(1) : spring(0) }}>
             {
                 interpolatingStyle => {

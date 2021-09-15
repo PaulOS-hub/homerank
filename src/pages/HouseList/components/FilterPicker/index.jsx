@@ -30,4 +30,5 @@ export default function FilterPicker({ preValue, defaultVal, type, cols, filterd
             <FilterFooter cancel={() => { cancelChange(type) }} confirm={transferData} />
         </div >
     )
+
 }
