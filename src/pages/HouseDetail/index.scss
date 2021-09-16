@@ -1,4 +1,5 @@
 .info-desc {
+    background-color: #F5f5f5;
     .first-part {
         background-color: #fff;
         padding: 10px 10px;
@@ -45,6 +46,7 @@
                 font-size: 16px;
                 display: inline-block;
                 color: orangered;
+                font-weight: bold;
             }
 
             .price-center {
@@ -65,11 +67,100 @@
             li {
                 width: 50%;
                 padding: 10px 0;
-                .type-info{
-                    color:#444;
+                .type-info {
+                    color: #444;
                     font-size: 14px;
                 }
             }
         }
     }
+    .second-part {
+        margin-top: 10px;
+        background-color: #fff;
+        padding: 10px 10px;
+        border-radius: 5px;
+        .price-info {
+            font-size: 5px;
+            color: #999;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .type-info {
+            color: #444;
+            font-size: 14px;
+        }
+        #container-map {
+            width: 100%;
+            height: 200px;
+            margin-top: 10px;
+        }
+        .configure {
+            border-bottom: 1px solid #f5f6f5;
+            padding: 10px 0;
+        }
+        .configure-list-item {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            width: 100%;
+            & li {
+                width: 11%;
+                padding: 10px 15px;
+                text-align: left;
+                font-size: 5px;
+                color: #111;
+            }
+            .configure-icon,
+            .configure-title {
+                text-align: center;
+            }
+            .configure-title {
+                margin-top: 3px;
+            }
+            .configure-list {
+                .icon-list {
+                    font-size: 22px;
+                }
+            }
+        }
+    }
+    .third-part {
+        margin-top: 10px;
+        background-color: #fff;
+        padding: 10px 10px;
+        border-radius: 5px;
+        .type-info {
+            color: #444;
+            font-size: 14px;
+        }
+        .house-gaikuang{
+            padding-bottom:10px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .house-desc-info{
+            color:#444;
+            margin-top: 2px;
+            font-size: 14px;
+            padding-bottom: 45px;
+            letter-spacing: 1px;
+            line-height:20px;
+        }
+    }
+}
+
+.bubbless {
+    width: 60px;
+    height: 60px;
+    line-height: 2;
+    display: inline-block;
+    position: absolute;
+    border-radius: 100%;
+    background-color: rgba(12, 181, 106, 0.9);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    text-align: center;
+    cursor: pointer;
+}
+.namess {
+    padding: 18px 0 6px 0;
 }

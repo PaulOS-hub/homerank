@@ -1,0 +1,25 @@
+.footer-root {
+    display: flex;
+    // justify-content: ;
+    position: fixed;
+    width: 100%;
+    bottom: 50px;
+    z-index: 999;
+    background-color: #fff;
+    align-items: center;
+    li {
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top:1px solid #f5f6f5;
+        border-right:1px solid #f5f6f5;
+        flex: 1;
+        color:#777;
+        &:nth-child(3){
+            background-color: rgba(12, 181, 106, 0.9);
+            border-right: none;
+            color:#fff
+        }
+    }
+}

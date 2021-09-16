@@ -55,7 +55,16 @@ export default function HouseList() {
     }
     const changeHouse = item => {
         const { houseCode } = item // 房源id
-        history.push(`/home/detail/${houseCode}`)
+
+        /**
+         * 路由传参
+         * 与Vue 相反。 react中query相当于post格式，params相当于get形式
+         * 有一个特殊，state，与query相似，但刷新地址栏时，参数不丢失，query会丢失
+         * this.props.history.push({pathname:'/demo',query/state:{name:'dahuang'}})
+         *  */
+        history.push({
+            pathname: `/home/detail/${houseCode}`
+        })
     }
     // 加载更多项
     const loadMoreRows = ({ startIndex, stopIndex }) => {

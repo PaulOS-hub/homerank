@@ -25,7 +25,6 @@ export default function Map(props) {
     const [housesList, setHousesList] = useState([])
     const [isShowList, setIsShowList] = useState(false)
     //
-
     // 获取小区房源数据
     async function getHousesList(id) {
         try {
