@@ -22,8 +22,8 @@ export default function HouseList() {
 
     useEffect(() => {
         // 页面滚动到顶部,为啥没用呢?
-        window.scroll(0, 0)
-        console.log("滚动")
+        // window.scroll(0, 0)
+        // console.log("滚动")
     }, [houseList])
     // 接受filter组件筛选的条件的数据
     const onFilter = async (filters) => {
@@ -55,7 +55,6 @@ export default function HouseList() {
     }
     const changeHouse = item => {
         const { houseCode } = item // 房源id
-
         /**
          * 路由传参
          * 与Vue 相反。 react中query相当于post格式，params相当于get形式

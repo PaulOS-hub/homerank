@@ -1,11 +1,13 @@
-import { UPDATELOCATION } from './action'
+import { LOGIN } from './action'
 import { initalState } from './state'
 export const reducer = (state = initalState, action) => {
     switch (action.type) {
-        case UPDATELOCATION:
-            console.log(21)
+        case LOGIN:
             return {
-                ...state, longitude: action.data.longitude, latitude: action.data.latitude
+                ...state, userInfo: {
+                    userName: action.data.userName,
+                    password: action.data.password
+                }
             }
         default:
             return state

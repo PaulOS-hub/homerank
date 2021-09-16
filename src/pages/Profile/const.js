@@ -1,0 +1,1 @@
+export const imgUrl = "https://img2.baidu.com/it/u=15166193,3024130028&fm=26&fmt=auto"

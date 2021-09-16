@@ -55,6 +55,8 @@ export default function Filter({ onFilter, setFlow }) {
         filters.more = more.join(',')
         if (openType) toggleTitle(openType)
         onFilter(filters)
+        return () => {
+        }
     }, [selectedVal]);
     const changeStatus = async type => {
         setFlow(false)
@@ -145,7 +147,7 @@ export default function Filter({ onFilter, setFlow }) {
         })
 
     }
-   
+
 
     const renderFilterPickComponent = () => {
         // 根据openType值获得数据

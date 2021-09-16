@@ -1,5 +1,7 @@
 
 export const initalState = {
-    longitude: null,
-    latitude: null
+    userInfo: {
+        username: "",
+        password: ""
+    }
 }
